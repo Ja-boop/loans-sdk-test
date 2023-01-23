@@ -1,8 +1,14 @@
 import config from "./config";
-import ILoanIntentRequest from "./types/ILoanIntentRequest";
 
+/**
+ * This fetch will return a loan intent transaction XDR
+ * @param borrower For example: `GDGQVOKHW4VEJRU2TETD6DBRKEO5ERCNF353LW5WBFW3JJWQ2BRQ6KDD`
+ * @param collateralAmount For example: `150`
+ * @returns {number} XDR string
+ */
 export async function getLoanIntent(
-  loanIntentRequest: ILoanIntentRequest
+  borrower: string,
+  collateralAmount: string
 ): Promise<string> {
   const result = await fetch(`${config.serverUrl}/loan/Intent`, {
     method: "POST",
@@ -10,7 +16,7 @@ export async function getLoanIntent(
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(loanIntentRequest),
+    body: JSON.stringify({ borrower, collateralAmount }),
   });
 
   return result.json();

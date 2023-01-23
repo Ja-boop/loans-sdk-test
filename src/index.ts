@@ -1,3 +1,3 @@
-export * from "./getLoan";
+export * from "./getLoanIntent";
 
 export default module.exports;
