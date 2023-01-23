@@ -40,6 +40,6 @@ describe("Get loan intent", () => {
       }
     );
 
-    expect(xdr).toEqual("1234");
+    expect(xdr).toEqual(XDR);
   });
 });
