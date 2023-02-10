@@ -2,18 +2,19 @@
  * @vitest-environment jsdom
  */
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import { Asset } from '../Asset';
 import config from '../config';
-import { getLoanIntent } from '../getLoanIntent';
+import { getSettleDebtIntent } from '../getSettleDebtIntent';
 
-describe('Get loan intent', () => {
+describe('Get repay withdraw collateral intent XDR', () => {
     afterEach(() => {
         global.fetch = vi.fn();
     });
 
-    it('should fetch with server url', async () => {
+    it('Should get an XDR to repay the remaining debt', async () => {
         const BORROWER = '1234';
-        const COLLATERAL_AMOUNT = '150';
         const XDR = '1234';
+        const asset = new Asset('1234', '1234', false);
 
         global.fetch = vi.fn(() =>
             Promise.resolve({
@@ -22,11 +23,15 @@ describe('Get loan intent', () => {
             }),
         ) as never;
 
-        const xdr = await getLoanIntent('testnet', BORROWER, COLLATERAL_AMOUNT);
+        const settleDebtXDR = await getSettleDebtIntent(
+            'testnet',
+            BORROWER,
+            asset,
+        );
 
         expect(global.fetch).toHaveBeenCalledTimes(1);
         expect(global.fetch).toHaveBeenCalledWith(
-            `${config.testnetServerUrl}/loan/Intent`,
+            `${config.testnetServerUrl}/loan/RepayWithdrawCollateral/Intent`,
             {
                 method: 'POST',
                 headers: {
@@ -35,11 +40,11 @@ describe('Get loan intent', () => {
                 },
                 body: JSON.stringify({
                     borrower: BORROWER,
-                    collateralAmount: COLLATERAL_AMOUNT,
+                    debtCancellationAsset: asset,
                 }),
             },
         );
 
-        expect(xdr).toEqual(XDR);
+        expect(settleDebtXDR).toEqual(XDR);
     });
 });

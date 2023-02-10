@@ -1,3 +1,4 @@
 export default {
-  serverUrl: "https://localhost:5001",
+    testnetServerUrl: 'https://test.loans-api.plutodao.finance',
+    publicServerUrl: 'https://loans-api.plutodao.finance',
 };

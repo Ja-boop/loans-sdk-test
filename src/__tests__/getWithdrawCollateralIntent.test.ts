@@ -3,16 +3,15 @@
  */
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import config from '../config';
-import { getLoanIntent } from '../getLoanIntent';
+import { getWithdrawCollateralIntent } from '../getWithdrawCollateralIntent';
 
-describe('Get loan intent', () => {
+describe('Withdraw collateral intent', () => {
     afterEach(() => {
         global.fetch = vi.fn();
     });
 
-    it('should fetch with server url', async () => {
+    it('Should get a withdraw collateral intent XDR', async () => {
         const BORROWER = '1234';
-        const COLLATERAL_AMOUNT = '150';
         const XDR = '1234';
 
         global.fetch = vi.fn(() =>
@@ -22,11 +21,14 @@ describe('Get loan intent', () => {
             }),
         ) as never;
 
-        const xdr = await getLoanIntent('testnet', BORROWER, COLLATERAL_AMOUNT);
+        const withdrawCollateralXDR = await getWithdrawCollateralIntent(
+            'testnet',
+            BORROWER,
+        );
 
         expect(global.fetch).toHaveBeenCalledTimes(1);
         expect(global.fetch).toHaveBeenCalledWith(
-            `${config.testnetServerUrl}/loan/Intent`,
+            `${config.testnetServerUrl}/loan/WithdrawCollateral/Intent`,
             {
                 method: 'POST',
                 headers: {
@@ -35,11 +37,10 @@ describe('Get loan intent', () => {
                 },
                 body: JSON.stringify({
                     borrower: BORROWER,
-                    collateralAmount: COLLATERAL_AMOUNT,
                 }),
             },
         );
 
-        expect(xdr).toEqual(XDR);
+        expect(withdrawCollateralXDR).toEqual(XDR);
     });
 });

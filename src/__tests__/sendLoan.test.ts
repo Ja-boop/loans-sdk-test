@@ -3,30 +3,29 @@
  */
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import config from '../config';
-import { getLoanIntent } from '../getLoanIntent';
+import { sendLoan } from '../sendLoan';
 
-describe('Get loan intent', () => {
+describe('Send loan', () => {
     afterEach(() => {
         global.fetch = vi.fn();
     });
 
-    it('should fetch with server url', async () => {
+    it('Should send a signed loan intent XDR', async () => {
         const BORROWER = '1234';
-        const COLLATERAL_AMOUNT = '150';
         const XDR = '1234';
 
         global.fetch = vi.fn(() =>
             Promise.resolve({
                 ok: true,
-                json: () => Promise.resolve(XDR),
+                json: () => Promise.resolve(true),
             }),
         ) as never;
 
-        const xdr = await getLoanIntent('testnet', BORROWER, COLLATERAL_AMOUNT);
+        await sendLoan('testnet', BORROWER, XDR);
 
         expect(global.fetch).toHaveBeenCalledTimes(1);
         expect(global.fetch).toHaveBeenCalledWith(
-            `${config.testnetServerUrl}/loan/Intent`,
+            `${config.testnetServerUrl}/loan`,
             {
                 method: 'POST',
                 headers: {
@@ -35,11 +34,9 @@ describe('Get loan intent', () => {
                 },
                 body: JSON.stringify({
                     borrower: BORROWER,
-                    collateralAmount: COLLATERAL_AMOUNT,
+                    loanSignedTransaction: XDR,
                 }),
             },
         );
-
-        expect(xdr).toEqual(XDR);
     });
 });
