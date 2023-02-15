@@ -2,6 +2,8 @@
  * @vitest-environment jsdom
  */
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import { Asset } from '../Asset';
+import { BalanceDto } from '../BalanceDto';
 import config from '../config';
 import { getLoanIntent } from '../getLoanIntent';
 
@@ -13,6 +15,8 @@ describe('Get loan intent', () => {
     it('should fetch with server url', async () => {
         const BORROWER = '1234';
         const COLLATERAL_AMOUNT = '150';
+        const ASSET_CODE = 'yUSDC';
+        const ASSET_ISSUER = '1234';
         const XDR = '1234';
 
         global.fetch = vi.fn(() =>
@@ -22,7 +26,10 @@ describe('Get loan intent', () => {
             }),
         ) as never;
 
-        const xdr = await getLoanIntent('testnet', BORROWER, COLLATERAL_AMOUNT);
+        const asset = new Asset(ASSET_CODE, ASSET_ISSUER, false);
+        const balanceDto = new BalanceDto(asset, COLLATERAL_AMOUNT);
+
+        const xdr = await getLoanIntent('testnet', BORROWER, balanceDto);
 
         expect(global.fetch).toHaveBeenCalledTimes(1);
         expect(global.fetch).toHaveBeenCalledWith(
@@ -35,7 +42,7 @@ describe('Get loan intent', () => {
                 },
                 body: JSON.stringify({
                     borrower: BORROWER,
-                    collateralAmount: COLLATERAL_AMOUNT,
+                    entryBalance: balanceDto,
                 }),
             },
         );

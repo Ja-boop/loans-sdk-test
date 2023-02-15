@@ -6,6 +6,7 @@ export * from './getSettleDebtIntent';
 export * from './sendWithdrawCollateral';
 export * from './server';
 export * from './Asset';
+export * from './BalanceDto';
 export * from './LoanStatusResponse';
 
 export default module.exports;
