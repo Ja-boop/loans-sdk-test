@@ -1,13 +1,30 @@
 ## Get a loan
 
+List of accepted assets
+
+- XLM
+- YXLM
+- PUSD
+- USDC
+- YUSDC
+- ARS
+- ARST
+- AQUA
+- BTC
+- ETH
+
 ```javascript
 // First we need to get the XDR that will be signed by the borrower
 
-const server = 'testnet'; // 'testnet' | 'public'
-const borrower 'GAIRISXKPLOWZBMFRPU5XRGUUX3VMA3ZEWKBM5MSNRU3CHV6P4PYZ74D';
-const collateralAmount = '150';
+import {Asset, Server} from 'plutodao-loans-sdk';
 
-const loanIntentXdr = await getLoanIntent(server, borrower, collateralAmount); 
+const server: Server = 'testnet'; // 'testnet' | 'public'
+const borrower 'GAIRISXKPLOWZBMFRPU5XRGUUX3VMA3ZEWKBM5MSNRU3CHV6P4PYZ74D';
+const asset = new Asset('yUSDC', 'GDGTVWSM4MGS4T7Z6W4RPWOCHE2I6RDFCIFZGS3DOA63LWQTRNZNTTFF', false);
+const amount = '150';
+const entryBalance = new BalanceDto(asset, amount);
+
+const loanIntentXdr = await getLoanIntent(server, borrower, entryBalance); 
 
 // Then, after the borrower signs the transaction, we send the loan
 
@@ -33,22 +50,32 @@ loanStatus = {
 ## Withdraw collateral
 
 There are two ways to let the borrower withdraw its collateral, by letting the loan paid itself or by settling the debt
+
+### Loan paid itself
 ```javascript
-// Once the loand paid itself
+// Only when the loand paid itself
 
 const server = 'testnet'; // 'testnet' | 'public'
 const borrower 'GAIRISXKPLOWZBMFRPU5XRGUUX3VMA3ZEWKBM5MSNRU3CHV6P4PYZ74D';
 
 const withdrawCollateralIntentXDR = await getWithdrawCollateralIntent(server, borrower);
+```
+### Settle debt
 
-// Or if the borrower wants to settle the debt
+List of accepted assets
 
+- PUSD
+- USDC
+- YUSDC
+
+```javascript
 const asset = new Asset('yUSDC', 'GDGTVWSM4MGS4T7Z6W4RPWOCHE2I6RDFCIFZGS3DOA63LWQTRNZNTTFF', false);
 
 const settleDebtXDR = await getSettleDebtIntent(server, borrower, asset);
+```
+When the borrower signs the XDR, we send it
 
-// Now when the borrower signs the XDR, we send it
-
+```javascript
 const signedWithdrawCollateralXdr = 'AAAAAgAAAACNv+HQvu9z8arYeDQYDO5KZoPZcjtWn3QWVHFVmFgtAgAAAGQAD2qUAAAAAQAAAAE...';
 
 await sendWithdrawCollateral(server, borrower, signedWithdrawCollateralXdr);
