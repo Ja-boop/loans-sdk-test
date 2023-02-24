@@ -1,3 +1,4 @@
+import { WithdrawCollateralError } from './errors';
 import fetchLoansApi from './fetchLoansApi';
 import { Server } from './server';
 
@@ -23,5 +24,9 @@ export async function sendWithdrawCollateral(
         },
     );
 
-    return result.ok;
+    if (result.ok) {
+        return result.ok;
+    } else {
+        throw new WithdrawCollateralError();
+    }
 }

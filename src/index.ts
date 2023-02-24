@@ -8,5 +8,6 @@ export * from './server';
 export * from './Asset';
 export * from './BalanceDto';
 export * from './LoanStatusResponse';
+export * from './errors';
 
 export default module.exports;

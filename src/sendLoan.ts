@@ -1,5 +1,8 @@
+import { TooFewOffersError, RequestLoanError } from './errors';
 import fetchLoansApi from './fetchLoansApi';
 import { Server } from './server';
+
+const NOT_ENOUGH_OFFERS_ERROR = 'op_too_few_offers';
 
 /**
  * This fetch will submit a signed loan intent transaction XDR to get a loan
@@ -18,5 +21,15 @@ export async function sendLoan(
         loanSignedTransaction,
     });
 
-    return result.ok;
+    if (result.ok) {
+        return result.ok;
+    } else {
+        const response = await result.json();
+
+        if (response.detail.includes(NOT_ENOUGH_OFFERS_ERROR)) {
+            throw new TooFewOffersError();
+        } else {
+            throw new RequestLoanError();
+        }
+    }
 }
