@@ -20,7 +20,7 @@
         }
     },
     "scripts": {
-        "clean": "rd /s /q esm dist lib .cache>nul 2>&1|echo.>nul",
+        "clean": "rd /s /q esm dist lib .cache>nul 2>&1 && echo.>nul",
         "build": "npm run clean && npm run build:esm && npm run build:cjs",
         "build:esm": "tsc -p ./configs/tsconfig.esm.json && @powershell mv lib/esm/index.js lib/esm/index.mjs",
         "build:cjs": "tsc -p ./configs/tsconfig.cjs.json",
