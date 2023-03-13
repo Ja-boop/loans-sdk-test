@@ -1,6 +1,6 @@
 # loans-sdk
 
-loans-sdk is a JavaScript library for communicating with the API of loans
+loans-sdk is a JavaScript library for communicating with the API of loanss
 
 It provides the functions and examples of all the steps to taking a loan
 
@@ -10,6 +10,7 @@ examples](https://github.com/PlutoDAO/loans-sdk/blob/main/docs/reference/example
 ## Quick start
 
 ### Install
+
 1. Install it using npm:
 
 ```shell
