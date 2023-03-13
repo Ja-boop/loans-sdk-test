@@ -2,21 +2,44 @@
     "name": "plutodao-loans-sdk",
     "version": "1.3.0",
     "description": "",
-    "main": "./lib/index.js",
-    "types": "./lib/index.d.ts",
+    "main": "./lib/cjs/index.js",
+    "types": "./lib/cjs/types/index.d.ts",
     "files": [
-        "/types",
-        "/lib",
-        "/dist"
+        "lib/**/*"
     ],
+    "exports": {
+        ".": {
+            "import": {
+                "types": "./lib/esm/types/index.d.ts",
+                "default": "./lib/esm/index.mjs"
+            },
+            "require": {
+                "types": "./lib/cjs/types/index.d.ts",
+                "default": "./lib/cjs/index.js"
+            }
+        }
+    },
     "scripts": {
+        "clean": "rd /s /q esm dist lib .cache>nul 2>&1|echo.>nul",
+        "build": "npm run clean && npm run build:esm && npm run build:cjs",
+        "build:esm": "tsc -p ./configs/tsconfig.esm.json && @powershell mv lib/esm/index.js lib/esm/index.mjs",
+        "build:cjs": "tsc -p ./configs/tsconfig.cjs.json",
+        "prepack": "npm run build",
         "test": "vitest src",
-        "build": "npx tsc",
-        "test:watch": "npm run test -- --watch"
+        "test:watch": "npm run test -- --watch",
+        "semantic-release": "semantic-release"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/PlutoDAO/loans-sdk.git"
+        "url": "https://github.com/PlutoDAO/loans-sdk.git"
+    },
+    "release": {
+        "branches": [
+            "main"
+        ]
+    },
+    "publishConfig": {
+        "access": "public"
     },
     "author": "",
     "license": "ISC",
@@ -26,9 +49,11 @@
     "homepage": "https://github.com/PlutoDAO/loans-sdk#readme",
     "devDependencies": {
         "@types/node": "^18.11.18",
-        "@vitest/coverage-c8": "^0.28.1",
+        "@vitest/coverage-c8": "^0.29.2",
+        "semantic-release": "^20.1.1",
+        "ts-node": "^10.9.1",
         "typescript": "^4.9.4",
-        "vitest": "^0.28.1"
+        "vitest": "^0.29.2"
     },
     "dependencies": {
         "jsdom": "^21.1.0"
