@@ -48,6 +48,8 @@
     },
     "homepage": "https://github.com/PlutoDAO/loans-sdk#readme",
     "devDependencies": {
+        "@semantic-release/git": "^10.0.1",
+        "@semantic-release/github": "^8.0.7",
         "@types/node": "^18.11.18",
         "@vitest/coverage-c8": "^0.29.2",
         "semantic-release": "^20.1.1",
