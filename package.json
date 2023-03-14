@@ -31,7 +31,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/PlutoDAO/loans-sdk.git"
+        "url": "git+https://github.com/Ja-boop/loans-sdk-test.git"
     },
     "release": {
         "branches": [
@@ -44,9 +44,9 @@
     "author": "",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/PlutoDAO/loans-sdk/issues"
+        "url": "https://github.com/Ja-boop/loans-sdk-test/issues"
     },
-    "homepage": "https://github.com/PlutoDAO/loans-sdk#readme",
+    "homepage": "https://github.com/Ja-boop/loans-sdk-test#readme",
     "devDependencies": {
         "@semantic-release/commit-analyzer": "^9.0.2",
         "@semantic-release/git": "^10.0.1",
