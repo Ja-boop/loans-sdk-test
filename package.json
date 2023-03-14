@@ -1,68 +1,68 @@
 {
-    "name": "plutodao-loans-sdk-test",
-    "version": "1.0.0",
-    "description": "loans-sdk is a JavaScript library for communicating with the API of loans",
-    "main": "./lib/cjs/index.js",
-    "types": "./lib/cjs/types/index.d.ts",
-    "files": [
-        "lib/**/*"
-    ],
-    "exports": {
-        ".": {
-            "import": {
-                "types": "./lib/esm/types/index.d.ts",
-                "default": "./lib/esm/index.mjs"
-            },
-            "require": {
-                "types": "./lib/cjs/types/index.d.ts",
-                "default": "./lib/cjs/index.js"
-            }
-        }
-    },
-    "scripts": {
-        "clean": "rd /s /q esm dist lib .cache>nul 2>&1|echo.>nul",
-        "build": "npm run clean && npm run build:esm && npm run build:cjs",
-        "build:esm": "tsc -p ./configs/tsconfig.esm.json && @powershell mv lib/esm/index.js lib/esm/index.mjs",
-        "build:cjs": "tsc -p ./configs/tsconfig.cjs.json",
-        "prepack": "npm run build",
-        "test": "vitest src",
-        "test:watch": "npm run test -- --watch",
-        "semantic-release": "semantic-release"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/Ja-boop/loans-sdk-test.git"
-    },
-    "release": {
-        "branches": [
-            "main"
-        ]
-    },
-    "publishConfig": {
-        "access": "public"
-    },
-    "author": "",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/Ja-boop/loans-sdk-test/issues"
-    },
-    "homepage": "https://github.com/Ja-boop/loans-sdk-test#readme",
-    "devDependencies": {
-        "@semantic-release/commit-analyzer": "^9.0.2",
-        "@semantic-release/git": "^10.0.1",
-        "@semantic-release/github": "^8.0.7",
-        "@semantic-release/release-notes-generator": "^10.0.3",
-        "@types/node": "^18.11.18",
-        "@vitest/coverage-c8": "^0.29.2",
-        "semantic-release": "^20.1.1",
-        "ts-node": "^10.9.1",
-        "typescript": "^4.9.4",
-        "vitest": "^0.29.2"
-    },
-    "dependencies": {
-        "jsdom": "^21.1.0"
-    },
-    "directories": {
-        "doc": "docs"
+  "name": "plutodao-loans-sdk-test",
+  "version": "0.0.0-development",
+  "description": "loans-sdk is a JavaScript library for communicating with the API of loans",
+  "main": "./lib/cjs/index.js",
+  "types": "./lib/cjs/types/index.d.ts",
+  "files": [
+    "lib/**/*"
+  ],
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./lib/esm/types/index.d.ts",
+        "default": "./lib/esm/index.mjs"
+      },
+      "require": {
+        "types": "./lib/cjs/types/index.d.ts",
+        "default": "./lib/cjs/index.js"
+      }
     }
+  },
+  "scripts": {
+    "clean": "rd /s /q esm dist lib .cache>nul 2>&1|echo.>nul",
+    "build": "npm run clean && npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc -p ./configs/tsconfig.esm.json && @powershell mv lib/esm/index.js lib/esm/index.mjs",
+    "build:cjs": "tsc -p ./configs/tsconfig.cjs.json",
+    "prepack": "npm run build",
+    "test": "vitest src",
+    "test:watch": "npm run test -- --watch",
+    "semantic-release": "semantic-release"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ja-boop/loans-sdk-test.git"
+  },
+  "release": {
+    "branches": [
+      "main"
+    ]
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ja-boop/loans-sdk-test/issues"
+  },
+  "homepage": "https://github.com/Ja-boop/loans-sdk-test#readme",
+  "devDependencies": {
+    "@semantic-release/commit-analyzer": "^9.0.2",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^8.0.7",
+    "@semantic-release/release-notes-generator": "^10.0.3",
+    "@types/node": "^18.11.18",
+    "@vitest/coverage-c8": "^0.29.2",
+    "semantic-release": "^20.1.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4",
+    "vitest": "^0.29.2"
+  },
+  "dependencies": {
+    "jsdom": "^21.1.0"
+  },
+  "directories": {
+    "doc": "docs"
+  }
 }
