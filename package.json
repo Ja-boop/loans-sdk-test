@@ -1,7 +1,7 @@
 {
-    "name": "plutodao-loans-sdk",
-    "version": "1.5.1",
-    "description": "",
+    "name": "plutodao-loans-sdk-test",
+    "version": "1.0.0",
+    "description": "loans-sdk is a JavaScript library for communicating with the API of loans",
     "main": "./lib/cjs/index.js",
     "types": "./lib/cjs/types/index.d.ts",
     "files": [
@@ -20,9 +20,9 @@
         }
     },
     "scripts": {
-        "clean": "rm -rf ./lib",
+        "clean": "rd /s /q esm dist lib .cache>nul 2>&1|echo.>nul",
         "build": "npm run clean && npm run build:esm && npm run build:cjs",
-        "build:esm": "tsc -p ./configs/tsconfig.esm.json && mv lib/esm/index.js lib/esm/index.mjs",
+        "build:esm": "tsc -p ./configs/tsconfig.esm.json && @powershell mv lib/esm/index.js lib/esm/index.mjs",
         "build:cjs": "tsc -p ./configs/tsconfig.cjs.json",
         "prepack": "npm run build",
         "test": "vitest src",
@@ -31,7 +31,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/PlutoDAO/loans-sdk.git"
+        "url": "git+https://github.com/PlutoDAO/loans-sdk.git"
     },
     "release": {
         "branches": [
@@ -61,5 +61,8 @@
     },
     "dependencies": {
         "jsdom": "^21.1.0"
+    },
+    "directories": {
+        "doc": "docs"
     }
 }
