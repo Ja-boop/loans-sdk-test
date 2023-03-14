@@ -1,6 +1,6 @@
 # loans-sdk
 
-loans-sdk is a JavaScript library for communicating with the API of loanss
+loans-sdk is a JavaScript library for communicating with the API of loans
 
 It provides the functions and examples of all the steps to taking a loan
 
